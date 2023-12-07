@@ -4,29 +4,35 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class Drive extends CommandBase {
-  /** Creates a new Drive. */
-  private DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
-  private double speed;
 
-  public Drive(DriveSubsystem m_DriveSubsystem, double speed) {
+public class SimDrive extends CommandBase {
+  /** Creates a new SimDrive. */
+  private DriveSubsystem  m_DriveSubsystem;
+  private double speed;
+  private DoubleSupplier m_rightSupplier;
+
+  public SimDrive(DriveSubsystem m_DriveSubsystem, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_DriveSubsystem = m_DriveSubsystem;
     this.speed = speed;
+
+    addRequirements(m_DriveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_DriveSubsystem.curveDrive(speed, speed, isFinished());
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_DriveSubsystem.drive(speed);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

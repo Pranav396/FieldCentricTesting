@@ -9,7 +9,7 @@ import com.revrobotics.CANSparkMaxLowLevel;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
-
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -32,6 +32,17 @@ public class DriveSubsystem extends SubsystemBase {
 
   public double getCurrentAngle() {
     return m_gyro.getYaw();
+  }
+
+  public void curveDrive(double xSpeed, double rotation, boolean turn){
+    var speeds = DifferentialDrive.curvatureDriveIK(xSpeed, -rotation, turn);
+
+    setOutput(speeds.left, speeds.right);
+  }
+
+  public void setOutput(double leftSpeed, double rightSpeed) {
+    m_left.set(leftSpeed);
+    m_right.set(rightSpeed);
   }
 
   public int getQuadrant(double angle) {
