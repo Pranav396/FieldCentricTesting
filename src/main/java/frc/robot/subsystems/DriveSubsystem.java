@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class DriveSubsystem extends SubsystemBase {
     /** Creates a new DriveSubsystems. */
   private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
-  private CANSparkMax m_left = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushed);
-  private CANSparkMax m_right = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushed);
+  CANSparkMax m_left = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushed);
+  CANSparkMax m_right = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushed);
 
   public DriveSubsystem() {}
 

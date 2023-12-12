@@ -10,6 +10,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.subsystems.DriveSubsystem;
@@ -33,13 +37,14 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final PS4Controller controller= new PS4Controller(0);
 
-  // Drive triggers
+  // // Drive triggers
   private final JoystickButton m_R1 = new JoystickButton(controller, Button.kR1.value);
   private final JoystickButton m_L1 = new JoystickButton(controller, Button.kL1.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commfands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    m_driveSubsystem.setDefaultCommand(new FieldCentric(m_driveSubsystem, .2, controller::getLeftY, controller::getLeftX));
     configureBindings();
   }
 
@@ -54,19 +59,12 @@ public class RobotContainer {
    */
   private void configureBindings() {
     
-    
-
-
+    m_L1.whileTrue(new TurnCommand(m_driveSubsystem, 0.2));
+    m_R1.whileTrue(new TurnCommand(m_driveSubsystem, -0.2));
 
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  // public Command getAutonomousCommand() {
-  //   // An example command will be run in autonomous
-  //   // return Autos.exampleAuto(m_exampleSubsystem);
-  // }
+  public Command getAutonomousCommand() {
+    return null;
+  }
 }
