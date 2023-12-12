@@ -5,7 +5,6 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -44,7 +43,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commfands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    m_driveSubsystem.setDefaultCommand(new FieldCentric(m_driveSubsystem, .2, controller::getLeftY, controller::getLeftX));
+    // m_driveSubsystem.setDefaultCommand(new FieldCentric(m_driveSubsystem, .2, controller::getLeftY, controller::getLeftX));
     configureBindings();
   }
 
@@ -59,8 +58,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     
-    m_L1.whileTrue(new TurnCommand(m_driveSubsystem, 0.2));
-    m_R1.whileTrue(new TurnCommand(m_driveSubsystem, -0.2));
+    m_L1.whileTrue(new TurnCommand(m_driveSubsystem, 0.3));
+    m_R1.whileTrue(new TurnCommand(m_driveSubsystem, -0.3));
 
   }
 

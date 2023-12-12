@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TurnCommand extends CommandBase {
   /** Creates a new TurnCommand. */
-  private DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
+  private DriveSubsystem m_DriveSubsystem;
   private double motorSpeed;
 
   public TurnCommand(DriveSubsystem m_DriveSubsystem, double motorSpeed) {
@@ -32,7 +32,9 @@ public class TurnCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_DriveSubsystem.setOutput(0, 0);
+  }
 
   // Returns true when the command should end.
   @Override
