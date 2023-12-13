@@ -18,7 +18,10 @@ public class DriveSubsystem extends SubsystemBase {
   CANSparkMax m_left = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushed);
   CANSparkMax m_right = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushed);
 
-  public DriveSubsystem() {}
+  public DriveSubsystem() {
+    m_left.setInverted(false);
+    m_right.setInverted(true);
+  }
 
   public void drive(double speed) {
     m_left.set(speed);
@@ -46,17 +49,23 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public int getQuadrant(double angle) {
-    if (angle > 0)
-        if (angle > 90)
-            return 4;
-        else
-            return 1;
-            
-    else 
-        if (angle < -90)
-            return 2;
-        else
-            return 3;
+
+    int quadrant = 0;
+
+    if(angle > 0 && angle < 90){
+      quadrant = 1;
+    }
+    else if(angle < 0 && angle > -90){
+      quadrant = 2;
+    }
+    else if(angle < -90 && angle > -180){
+      quadrant = 3;
+    }
+    else if(angle > 90 && angle < 180){
+      quadrant = 4;
+    }
+
+    return quadrant;
 }
 
   @Override
